@@ -8,8 +8,16 @@ namespace dz4_var9
         {
             Console.WriteLine("          Одномерные массивы          ");
             Console.Write("Введите колличество элементов массива:\t");
-            int index = int.Parse(Console.ReadLine());
 
+            int index = 0;
+            while (index < 1)
+            {
+                index = int.Parse(Console.ReadLine());
+                if (index < 1)
+                {
+                    Console.WriteLine("Некорректный размер массива.");
+                }
+            }
             double[] Arr = new double[index];
             Random rand = new Random();
 
@@ -62,12 +70,13 @@ namespace dz4_var9
             Console.WriteLine();
 
             Console.WriteLine("          Двумерные массивы          ");
-            double[,] Array = new double[10, 10];
+            int SIZE = 10;
+            double[,] Array = new double[SIZE, SIZE];
 
             Console.WriteLine("Вывод массива 10 x 10:");
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < SIZE; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < SIZE; j++)
                 {
                     Array[i, j] = rand.Next(0, 1000) / 10.0;
                     Console.Write(Array[i, j] + "\t");
@@ -77,21 +86,21 @@ namespace dz4_var9
             Console.WriteLine();
 
             Console.WriteLine("Сглаженная матрица:");
-            double[,] SmoothedArray = new double[10, 10];
+            double[,] SmoothedArray = new double[SIZE, SIZE];
             double total = 0;
             double summ = 0;
             int a = 0, a1 = 0, a2 = 0, a3 = 0, m = 0;
 
-            for (int i = 0; i <= 9; i++)
+            for (int i = 0; i < SIZE; i++)
             {
-                for (int j = 0; j <= 9; j++)
+                for (int j = 0; j < SIZE; j++)
                 {
                     if (i == 0) a = 1;
-                    if (i == 9) a2 = 1;
+                    if (i == SIZE - 1) a2 = 1;
                     for (int k = i - 1 + a; k <= i + 1 - a2; k++)
                     {
                         if (j == 0) a1 = 1;
-                        if (j == 9) a3 = 1;
+                        if (j == SIZE - 1) a3 = 1;
                         for (int l = j - 1 + a1; l <= j + 1 - a3; l++)
                         {
                             summ = summ + Array[k, l];
@@ -99,8 +108,8 @@ namespace dz4_var9
                         }
                         a1 = 0;
                         a3 = 0;
-
                     }
+
                     SmoothedArray[i, j] = Math.Round((summ - Array[i, j]) / (m - 1), 3);
                     summ = 0;
                     m = 0;
@@ -108,9 +117,9 @@ namespace dz4_var9
                     a2 = 0;
                 }
             }
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < SIZE; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < SIZE; j++)
                 {
                     Console.Write(SmoothedArray[i, j] + "\t");
                 }
@@ -119,7 +128,7 @@ namespace dz4_var9
             Console.WriteLine();
 
             int p = 0;
-            for (int i = p; i < 10; i++)
+            for (int i = p+1; i < SIZE; i++)
             {
                 for (int j = 0; j < p+1; j++)
                 {
